@@ -17,11 +17,13 @@ class Hero {
                       <span class='badge'>{{hero.id}}</span> {{hero.name}}
                   </li>
                </ul>
-              <div *ng-if="selectedHero">
+                <div *ng-if="selectedHero">
                 <h2>{{selectedHero.name}} details!</h2>
                 <div><label>id: </label>{{selectedHero.id}}</div>
                 <div><label>name:</label>
-                <div><input [(ng-model)]='selectedHero.name' placeholder='name'></div>                             </div>`,
+                    <div><input [(ng-model)]='selectedHero.name' placeholder='name'></div>
+                </div>
+                `,
     styles: [`
             .heroes {list-style-type: none; margin-left: 1em; padding: 0; width: 10em;}
             .heroes li { cursor: pointer; position: relative; left: 0; transition: all 0.2s ease; }
@@ -40,16 +42,36 @@ class Hero {
             `],
     directives: [FORM_DIRECTIVES, CORE_DIRECTIVES]
 
+
 })
+
+
 class AppComponent {
+
+    //constructor(public DataService:DataService) {
+    //}
+
     public title = 'Tour of Heroes';
-    public selectedHero: Hero;
+    public selectedHero:Hero;
     public heroes = HEROES;
-    onSelect(hero: Hero) { this.selectedHero = hero; };
-    getSelectedClass(hero: Hero) {
-        return { 'selected': hero === this.selectedHero };
+
+    onSelect(hero:Hero) {
+        this.selectedHero = hero;
+    };
+
+    getSelectedClass(hero:Hero) {
+        return {'selected': hero === this.selectedHero};
     }
 }
+
+class DataService {
+
+    constructor() {
+
+    }
+
+}
+
 
 var HEROES:Hero[] = [
     {'id': 11, 'name': 'Mr. Nice'},
@@ -64,5 +86,5 @@ var HEROES:Hero[] = [
     {'id': 20, 'name': 'Tornado'}
 ];
 
-bootstrap(AppComponent);
+bootstrap(AppComponent, [DataService]);
 
